@@ -3,3 +3,4 @@ Pipfile.lock
 Pipfile
 info.json
 GLOBAL_VARIBLES.py
+__pycache__/GLOBAL_VARIBLES.cpython-38.pyc

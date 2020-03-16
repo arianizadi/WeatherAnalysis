@@ -2,17 +2,14 @@ import requests
 import json
 import matplotlib.pyplot as plt
 from geopy import Nominatim
-from GLOBAL_VARIBLES import API_KEY
+from GLOBAL_VARIBLES import API_KEY, LOCATION
 
 
 # GETTING LOCATION INFORMATION
 
 geolocator = Nominatim(user_agent="WeatherAnalysis")
 
-location = ''
-
-while location == '':
-    location = input('Location: ')
+location = LOCATION
 
 location = geolocator.geocode(location)
 
