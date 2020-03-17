@@ -11,7 +11,7 @@ geolocator = Nominatim(user_agent="WeatherAnalysis")
 
 location = LOCATION
 
-location = geolocator.geocode(location)
+location = geolocator.geocode(location, addressdetails=True)
 
 print('\n\nLocation Info: ' + str(location.address))
 print('Lat: ' + str(location.latitude))
@@ -28,27 +28,42 @@ r = requests.get(url)
 
 # PROCESSING WEATHER INFORMATION
 
-xLabels = []
 yLabels = []
+xLabels = []
 
-aimFor = 'temperatureMax'
+yAxis = 'temperatureMax'
+xAxis = 'daily'
 
 count = 0
 
-for day in r.json()['daily']['data']:
+for day in r.json()[xAxis]['data']:
     xLabels.append(count)
-    yLabels.append(day[aimFor])
-    # creating point annotations for plt
-    plt.annotate(day[aimFor], (count, day[aimFor]))
+    yLabels.append(day[yAxis])
+    # POINT ANNOTATIONS ON PLT
+    plt.annotate(day[yAxis], (count, day[yAxis]))
     count += 1
 
 
-# PLOTTING GRAPH
+# CREATE DICT
 
+KEYS = xLabels
+VALUES = yLabels
+
+# ZIP INTO DICT
+
+POINT_DICT = dict(zip(KEYS, VALUES))
+
+# SORT DICT
+
+POINT_DICT = sorted(POINT_DICT.items(), key=lambda x: x[1])
+
+
+# PLOTTING PLT
 
 plt.plot(xLabels, yLabels)
-plt.ylabel(aimFor)
-plt.xlabel('Day')
+plt.ylabel(yAxis)
+plt.xlabel(xAxis)
+plt.title(location.raw['address']['city'])
 plt.show()
 
 print('\n\n')

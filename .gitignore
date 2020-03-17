@@ -4,3 +4,5 @@ Pipfile
 info.json
 GLOBAL_VARIBLES.py
 __pycache__/GLOBAL_VARIBLES.cpython-38.pyc
+example_geopy_api.json
+example_darksky_api.json
